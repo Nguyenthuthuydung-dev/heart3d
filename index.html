@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Ultimate Heart3D - Cao Bảo Lâm Edition</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+          rel="stylesheet">
+</head>
+
+<body>
+
+<!-- Canvas ThreeJS -->
+<canvas id="bg"></canvas>
+
+<!-- Loading -->
+<div id="loading">
+
+    <div class="loader-heart">❤️</div>
+
+    <div class="loading-text">
+
+        Ultimate Heart3D
+
+    </div>
+
+    <div class="loading-sub">
+
+        Loading our universe...
+
+    </div>
+
+</div>
+
+<!-- Intro -->
+<div id="intro" class="hidden">
+
+    <h1>
+
+        ❤️
+
+    </h1>
+
+    <h2>
+
+        Ultimate Heart3D
+
+    </h2>
+
+    <p>
+
+        Cao Bảo Lâm Edition
+
+    </p>
+
+    <button id="startButton">
+
+        Bắt đầu hành trình ❤️
+
+    </button>
+
+</div>
+
+<!-- Story -->
+<div id="story" class="hidden">
+
+    <div id="message"></div>
+
+</div>
+
+<!-- Love Timer -->
+<div id="timer" class="hidden">
+
+    <div class="timer-title">
+
+        ❤️ Đã bên nhau
+
+    </div>
+
+    <div id="loveClock">
+
+        00 năm
+        00 tháng
+        00 ngày
+
+        00:00:00
+
+    </div>
+
+</div>
+
+<!-- Replay -->
+<button id="replay"
+        class="hidden">
+
+    Replay ❤️
+
+</button>
+
+<!-- Audio -->
+
+<audio
+id="bgm"
+
+loop>
+
+    <source
+    src="assets/music.mp3"
+    type="audio/mpeg">
+
+</audio>
+
+<script type="module"
+src="js/main.js">
+
+</script>
+
+</body>
+</html>
