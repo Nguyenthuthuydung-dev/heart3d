@@ -58,6 +58,10 @@ const delta = clock.getDelta();
 
 controls.update();
 
+stars.rotation.y += 0.00015;
+
+stars.rotation.x += 0.00005;
+
 renderer.render(
 scene,
 camera
@@ -84,3 +88,58 @@ window.innerHeight
 
 }
 );
+/* ========= STAR FIELD ========= */
+
+const starGeometry = new THREE.BufferGeometry();
+
+const starCount = 12000;
+
+const starPositions = [];
+
+for(let i = 0; i < starCount; i++){
+
+    starPositions.push(
+
+        (Math.random()-0.5)*3000,
+        (Math.random()-0.5)*3000,
+        (Math.random()-0.5)*3000
+
+    );
+
+}
+
+starGeometry.setAttribute(
+
+    "position",
+
+    new THREE.Float32BufferAttribute(
+
+        starPositions,
+
+        3
+
+    )
+
+);
+
+const starMaterial = new THREE.PointsMaterial({
+
+    color:0xffffff,
+
+    size:1.2,
+
+    transparent:true,
+
+    opacity:0.9
+
+});
+
+const stars = new THREE.Points(
+
+    starGeometry,
+
+    starMaterial
+
+);
+
+scene.add(stars);
