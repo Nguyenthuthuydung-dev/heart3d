@@ -58,10 +58,6 @@ const delta = clock.getDelta();
 
 controls.update();
 
-stars.rotation.y += 0.00015;
-
-stars.rotation.x += 0.00005;
-
 renderer.render(
 scene,
 camera
