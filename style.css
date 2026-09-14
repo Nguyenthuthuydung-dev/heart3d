@@ -339,3 +339,17 @@ canvas {
     }
 
 }
+body {
+    margin: 0;
+    overflow: hidden;
+    background: #02020a;
+}
+
+canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+    z-index: 0;
+}
