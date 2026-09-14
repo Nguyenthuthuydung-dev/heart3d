@@ -1,1 +1,341 @@
+/* ==========================================
+   ULTIMATE HEART3D
+   Anniversary Edition
+========================================== */
 
+@import url(
+    'https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap'
+);
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+
+    margin: 0;
+
+    padding: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #000;
+
+    font-family: 'Poppins', sans-serif;
+
+}
+
+
+body {
+
+    position: relative;
+
+}
+
+
+/* ==========================================
+   THREE.JS
+========================================== */
+
+canvas {
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+}
+
+
+/* ==========================================
+   LOADING
+========================================== */
+
+.loading {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 20;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(70, 20, 80, 0.18),
+            #000 65%
+        );
+
+    transition:
+        opacity 1.2s ease,
+        visibility 1.2s ease;
+
+}
+
+
+.loading.hide {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+}
+
+
+.loading-title {
+
+    font-size: clamp(
+        28px,
+        8vw,
+        58px
+    );
+
+    font-weight: 600;
+
+    letter-spacing: 5px;
+
+    text-align: center;
+
+    color: white;
+
+    text-shadow:
+        0 0 10px rgba(255,255,255,.7),
+        0 0 30px rgba(255,80,180,.45);
+
+}
+
+
+.loading-subtitle {
+
+    margin-top: 12px;
+
+    font-size: 13px;
+
+    letter-spacing: 2px;
+
+    color: rgba(
+        255,
+        255,
+        255,
+        .65
+    );
+
+    text-align: center;
+
+}
+
+
+/* ==========================================
+   BUTTON
+========================================== */
+
+#startButton {
+
+    margin-top: 38px;
+
+    padding:
+        13px
+        28px;
+
+    border: 1px solid
+        rgba(255,255,255,.45);
+
+    border-radius: 999px;
+
+    background:
+        rgba(255,255,255,.06);
+
+    color: white;
+
+    font-family: inherit;
+
+    font-size: 14px;
+
+    letter-spacing: 1px;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    transform:
+        translateY(15px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease,
+        background .3s ease,
+        box-shadow .3s ease;
+
+}
+
+
+#startButton.show {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+
+}
+
+
+#startButton:active {
+
+    transform:
+        scale(.95);
+
+}
+
+
+#startButton:hover {
+
+    background:
+        rgba(255,255,255,.14);
+
+    box-shadow:
+        0 0 25px
+        rgba(255,100,200,.35);
+
+}
+
+
+/* ==========================================
+   CAPTION
+========================================== */
+
+.scene-text {
+
+    position: fixed;
+
+    z-index: 10;
+
+    left: 50%;
+
+    bottom: 7%;
+
+    transform:
+        translateX(-50%);
+
+    width: 90%;
+
+    text-align: center;
+
+    color:
+        rgba(255,255,255,.85);
+
+    font-size: clamp(
+        11px,
+        3vw,
+        16px
+    );
+
+    font-weight: 300;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 0 12px
+        rgba(255,100,200,.8);
+
+    opacity: 0;
+
+    transition:
+        opacity .8s ease;
+
+}
+
+
+.scene-text.show {
+
+    opacity: 1;
+
+}
+
+
+.scene-text.pulse {
+
+    animation:
+        textPulse 1.2s ease;
+
+}
+
+
+@keyframes textPulse {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translateX(-50%)
+            translateY(15px);
+
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            translateX(-50%)
+            translateY(0);
+
+    }
+
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media (
+    max-width: 600px
+) {
+
+    .loading-title {
+
+        letter-spacing: 3px;
+
+    }
+
+
+    .loading-subtitle {
+
+        padding:
+            0 25px;
+
+    }
+
+
+    .scene-text {
+
+        bottom: 6%;
+
+        letter-spacing: 1px;
+
+    }
+
+}
