@@ -7,352 +7,114 @@ import * as THREE from
 "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js";
 
 import {
-    Universe
+    createUniverse,
+    updateUniverse
 } from "./universe.js";
 
-
-// ==========================================
-// VARIABLES
-// ==========================================
-
-let scene;
-
-let camera;
-
-let renderer;
-
-let universe;
-
-let clock;
-
-let currentStep = -1;
-
-let running = false;
+import {
+    createHeart,
+    updateHeart
+} from "./heart.js";
 
 
 // ==========================================
-// DOM
+// SCENE
 // ==========================================
 
-const loading =
-    document.getElementById("loading");
+const scene =
+    new THREE.Scene();
 
-const loadingText =
-    document.getElementById("loadingText");
-
-const startButton =
-    document.getElementById("startButton");
-
-const sceneText =
-    document.getElementById("sceneText");
+scene.background =
+    new THREE.Color(0x02020a);
 
 
 // ==========================================
-// INIT
+// CAMERA
 // ==========================================
 
-function init() {
-
-    scene =
-        new THREE.Scene();
-
-
-    scene.background =
-        new THREE.Color(0x000000);
-
-
-    camera =
-        new THREE.PerspectiveCamera(
-            55,
-            window.innerWidth /
-            window.innerHeight,
-            0.1,
-            200
-        );
-
-
-    camera.position.z = 42;
-
-
-    renderer =
-        new THREE.WebGLRenderer({
-            antialias: true,
-            alpha: false
-        });
-
-
-    renderer.setPixelRatio(
-        Math.min(
-            window.devicePixelRatio,
-            1.7
-        )
+const camera =
+    new THREE.PerspectiveCamera(
+        60,
+        window.innerWidth /
+        window.innerHeight,
+        0.1,
+        200
     );
 
-
-    renderer.setSize(
-        window.innerWidth,
-        window.innerHeight
-    );
-
-
-    renderer.outputColorSpace =
-        THREE.SRGBColorSpace;
-
-
-    document.body.appendChild(
-        renderer.domElement
-    );
-
-
-    clock =
-        new THREE.Clock();
-
-
-    universe =
-        new Universe(
-            THREE,
-            scene
-        );
-
-
-    window.addEventListener(
-        "resize",
-        onResize
-    );
-
-
-    animate();
-
-
-    setTimeout(() => {
-
-        loadingText.textContent =
-            "Our little universe is ready ♡";
-
-        startButton.classList.add(
-            "show"
-        );
-
-    }, 1300);
-}
-
-
-// ==========================================
-// START
-// ==========================================
-
-startButton.addEventListener(
-    "click",
-    startExperience
+camera.position.set(
+    0,
+    0,
+    16
 );
 
 
-function startExperience() {
+// ==========================================
+// RENDERER
+// ==========================================
 
-    if (running) return;
+const renderer =
+    new THREE.WebGLRenderer({
+        antialias: true,
+        alpha: true
+    });
 
-    running = true;
+renderer.setPixelRatio(
+    Math.min(
+        window.devicePixelRatio,
+        2
+    )
+);
 
+renderer.setSize(
+    window.innerWidth,
+    window.innerHeight
+);
 
-    loading.classList.add(
-        "hide"
-    );
+renderer.outputColorSpace =
+    THREE.SRGBColorSpace;
 
-
-    sceneText.classList.add(
-        "show"
-    );
-
-
-    // Bắt đầu câu chuyện
-    setTimeout(() => {
-
-        nextStep();
-
-    }, 1000);
-}
+document.body.appendChild(
+    renderer.domElement
+);
 
 
 // ==========================================
-// SEQUENCE
+// UNIVERSE
 // ==========================================
 
-const sequence = [
-
-    {
-        text: "26.10.2025",
-        duration: 3300
-    },
-
-    {
-        text: "10:00",
-        duration: 3000
-    },
-
-    {
-        text: "1",
-        duration: 3300
-    },
-
-    {
-        text: "26.10.2026",
-        duration: 3500
-    },
-
-    {
-        text: "I LOVE YOU",
-        duration: 3500
-    },
-
-    {
-        text: "THÙY DUNG ♡ BẢO LÂM",
-        duration: 4500
-    }
-
-];
+const universe =
+    createUniverse(scene);
 
 
-function nextStep() {
+// ==========================================
+// HEART
+// ==========================================
 
-    currentStep++;
-
-
-    if (
-        currentStep >=
-        sequence.length
-    ) {
-
-        finishParticleSequence();
-
-        return;
-    }
+const heart =
+    createHeart(scene);
 
 
-    const step =
-        sequence[currentStep];
+// ==========================================
+// LIGHT
+// ==========================================
 
-
-    showSmallCaption(
-        getCaption(currentStep)
+const ambientLight =
+    new THREE.AmbientLight(
+        0xffffff,
+        1
     );
 
-
-    universe.morphTo(
-        step.text,
-        1700
-    );
-
-
-    setTimeout(() => {
-
-        nextStep();
-
-    }, step.duration);
-}
+scene.add(
+    ambientLight
+);
 
 
 // ==========================================
-// CAPTION
+// CLOCK
 // ==========================================
 
-function getCaption(index) {
-
-    switch (index) {
-
-        case 0:
-            return "The moment our story began";
-
-        case 1:
-            return "10:00 PM? No... 10:00 — the beginning of us";
-
-        case 2:
-            return "ONE";
-
-        case 3:
-            return "One year later...";
-
-        case 4:
-            return "And somehow, I still choose you";
-
-        case 5:
-            return "Our little universe";
-
-        default:
-            return "";
-    }
-}
-
-
-function showSmallCaption(text) {
-
-    sceneText.textContent =
-        text;
-
-    sceneText.classList.remove(
-        "pulse"
-    );
-
-
-    void sceneText.offsetWidth;
-
-
-    sceneText.classList.add(
-        "pulse"
-    );
-}
-
-
-// ==========================================
-// KẾT THÚC PHẦN PARTICLE
-// ==========================================
-
-function finishParticleSequence() {
-
-    showSmallCaption(
-        "One year down • A lifetime to go"
-    );
-
-
-    setTimeout(() => {
-
-        universe.explode(1.15);
-
-    }, 1800);
-
-
-    setTimeout(() => {
-
-        showSmallCaption(
-            "♡"
-        );
-
-    }, 3500);
-
-
-    // Sau này bước tiếp theo sẽ nối vào đây:
-    // Ảnh → Story → Thư tình → Timer → Fireworks
-}
-
-
-// ==========================================
-// RESIZE
-// ==========================================
-
-function onResize() {
-
-    camera.aspect =
-        window.innerWidth /
-        window.innerHeight;
-
-
-    camera.updateProjectionMatrix();
-
-
-    renderer.setSize(
-        window.innerWidth,
-        window.innerHeight
-    );
-}
+const clock =
+    new THREE.Clock();
 
 
 // ==========================================
@@ -365,18 +127,31 @@ function animate() {
         animate
     );
 
+    const elapsed =
+        clock.getElapsedTime();
 
-    const delta =
-        clock.getDelta();
+    updateUniverse(
+        universe,
+        elapsed
+    );
 
+    updateHeart(
+        heart,
+        elapsed
+    );
 
-    if (universe) {
+    // camera breathing
+    camera.position.z =
+        16 +
+        Math.sin(
+            elapsed * 0.35
+        ) * 0.35;
 
-        universe.update(
-            delta
-        );
-    }
-
+    camera.lookAt(
+        0,
+        0,
+        0
+    );
 
     renderer.render(
         scene,
@@ -384,9 +159,26 @@ function animate() {
     );
 }
 
+animate();
+
 
 // ==========================================
-// START
+// RESPONSIVE
 // ==========================================
 
-init();
+window.addEventListener(
+    "resize",
+    () => {
+
+        camera.aspect =
+            window.innerWidth /
+            window.innerHeight;
+
+        camera.updateProjectionMatrix();
+
+        renderer.setSize(
+            window.innerWidth,
+            window.innerHeight
+        );
+    }
+);
